@@ -3,6 +3,13 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+
+        int[] simpleTsign = {   1, 1,  1,
+                                0, 1,  0,
+                                0, 1,  0,
+                                0, 1,  0};
+
+        DHGN dhgn = new DHGN(simpleTsign,3);
+
     }
 }
