@@ -8,14 +8,13 @@ import java.util.Arrays;
  */
 public class DHGN {
 
-    static  char letterMatch[];
-    static volatile boolean saveSem = true;
+    static volatile char letterMatch[];
 
     private DHGN(){}
     public DHGN(Image imageToParse){}
     public  DHGN(int[] imageInIntegers, int ImageWidthToSeparate)
     {
-        letterMatch = new char[imageInIntegers.length/ImageWidthToSeparate+1];
+        letterMatch = new char[imageInIntegers.length/ImageWidthToSeparate];
 
         for (int i = 0; i < imageInIntegers.length/ImageWidthToSeparate; i++) {
            // System.out.println(i*3 + " " + ((i+1)*3-1) ); //because our HARDCODED KNOWLEDGEBASE has 3 items in a row so we copy 0-2, 3-5,6-8, etc.
@@ -46,7 +45,14 @@ public class DHGN {
         {
             this.ID = id;
             this.rowBinarySignature = binarySignature;
-            new Thread(this,Integer.toString(id)).start();
+            Thread t = new Thread(this,Integer.toString(id));
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
 
         @Override
@@ -63,9 +69,7 @@ public class DHGN {
 
             if(correctnessFlag)
             {
-                synchronized (letterMatch) {
                     letterMatch[ID] = 'T';
-                }
             }
         }
     }
