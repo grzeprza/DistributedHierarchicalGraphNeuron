@@ -1,17 +1,20 @@
 package com.company;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
 /**
  * Created by GrzegorzLap on 2016-04-04.
  */
-public class DHGN {
+public class DHGN implements ImageParsingAlgorithm {
 
     static volatile char letterMatch[];
+    ImageIcon imageIcon;
 
     private DHGN(){}
-    public DHGN(Image imageToParse){}
+    public DHGN(Image imageToParse){parseImage(null);}
+
     public  DHGN(int[] imageInIntegers, int ImageWidthToSeparate)
     {
         letterMatch = new char[imageInIntegers.length/ImageWidthToSeparate];
