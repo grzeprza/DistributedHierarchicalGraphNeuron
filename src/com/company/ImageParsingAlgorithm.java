@@ -8,6 +8,6 @@ import javax.swing.*;
 public interface ImageParsingAlgorithm<T> {
     default void parseImage(ImageIcon imageIcon)
     {
-        System.out.println(this.getClass().getSimpleName() + " has NOT IMPLEMENTED default image parsing");
+        System.out.println(this.getClass().getSimpleName() + " has NOT IMPLEMENTED image parsing");
     }
 }

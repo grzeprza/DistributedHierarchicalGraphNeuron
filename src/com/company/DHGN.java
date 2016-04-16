@@ -1,7 +1,6 @@
 package com.company;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 /**
@@ -10,10 +9,11 @@ import java.util.Arrays;
 public class DHGN implements ImageParsingAlgorithm {
 
     static volatile char letterMatch[];
-    ImageIcon imageIcon;
+    BufferedImage image;
 
     private DHGN(){}
-    public DHGN(Image imageToParse){parseImage(null);}
+
+    public DHGN(BufferedImage imageToParse){parseImage(null);}
 
     public  DHGN(int[] imageInIntegers, int ImageWidthToSeparate)
     {
@@ -26,7 +26,6 @@ public class DHGN implements ImageParsingAlgorithm {
 
         System.out.println(Arrays.toString(letterMatch));
     }
-
 
     /**Hardcoded 'knowledge-base'*/
     static int T[][] = {   {1, 1, 1},
@@ -74,8 +73,7 @@ public class DHGN implements ImageParsingAlgorithm {
             {
                     letterMatch[ID] = 'T';
             }
-            else
-                letterMatch[ID] = ' ';
+            else letterMatch[ID] = ' ';
         }
     }
 }
