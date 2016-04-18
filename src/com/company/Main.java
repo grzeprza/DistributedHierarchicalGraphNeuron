@@ -25,8 +25,10 @@ public class Main extends JFrame {
 
     public Main()
     {
+
+	
         setContentPane(root);
-        setName("Sztuczna Inteligencja 2016 - J. Plebaniak, G. Prz¹dka, M. Werda");
+        setName("Sztuczna Inteligencja 2016 - J. Plebaniak, G. Przï¿½dka, M. Werda");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -105,7 +107,6 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-
 
         int[] simpleTsign = {   1, 1,  1,
                                 0, 1,  0,

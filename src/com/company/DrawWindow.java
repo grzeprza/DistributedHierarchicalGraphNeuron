@@ -62,6 +62,7 @@ public class DrawWindow extends JComponent
 		    RenderingHints.VALUE_ANTIALIAS_ON);
 	    clear();
 	}
+	g.drawImage(image, 0, 0, null);
     }
     
     public void clear()

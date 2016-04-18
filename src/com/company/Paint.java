@@ -24,7 +24,7 @@ public class Paint
 	}
     };
     
-    public static void main()
+    public static void main(String[] args)
     {
 	new Paint().show();
     }
@@ -39,13 +39,12 @@ public class Paint
 	content.add(drawWindow, BorderLayout.CENTER);
 	
 	JPanel controls = new JPanel();
-	JButton clearButton = new JButton("Clear");
-	clearButton.addActionListener(actionListener);
-	
-	controls.add(clearButton);
+	clearBtn = new JButton("Clear");
+	clearBtn.addActionListener(actionListener);	
+	controls.add(clearBtn);
 	
 	content.add(controls, BorderLayout.NORTH);
-	frame.setSize(400, 400);
+	frame.setSize(500, 700);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setVisible(true);
     }
