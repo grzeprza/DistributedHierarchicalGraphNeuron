@@ -14,7 +14,7 @@ public class DrawWindow extends JComponent
 {
     private Image image;
     private Graphics2D graphic;
-    private int[] dim = {5, 7};
+    protected final int[] dim = {20, 20};
     
     private int currX, currY, oldX, oldY;
     
@@ -29,6 +29,8 @@ public class DrawWindow extends JComponent
 	    {
 		oldX = e.getX();
 		oldY = e.getY();
+		paintTile(oldX, oldY);
+		repaint();
 	    }
 	    
 	});
@@ -43,7 +45,6 @@ public class DrawWindow extends JComponent
 		
 		if(graphic != null)
 		{
-		    graphic.drawLine(oldX, oldY, currX, currY);
 		    paintTile(currX, currY);
 		    repaint();
 		    oldX = currX;
@@ -59,8 +60,7 @@ public class DrawWindow extends JComponent
 	int resolutionY = getSize().height / dim[1];
 	int leftUpper = x / resolutionX * resolutionX;
 	int rightLower = y / resolutionY * resolutionY;
-	graphic.fillRect(leftUpper, rightLower,
-		leftUpper + resolutionX, rightLower + resolutionY);
+	graphic.fillRect(leftUpper, rightLower, resolutionX, resolutionY);
     }
     
     @Override

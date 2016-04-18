@@ -25,7 +25,17 @@ public class Main extends JFrame {
 
     public Main()
     {
-
+	root = new JPanel();
+	label_information = new JLabel();
+	button_loadImage = new JButton();
+	button_accept = new JButton();
+	button_disapprove = new JButton();
+	label_imageSize = new JLabel();
+	label_image = new JLabel();
+	label_result = new JLabel();
+	button_proceed = new JButton();
+	progressBar_result = new JProgressBar();
+	
 	
         setContentPane(root);
         setName("Sztuczna Inteligencja 2016 - J. Plebaniak, G. Prz�dka, M. Werda");

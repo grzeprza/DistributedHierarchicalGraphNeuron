@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 public class Paint
 {
     JButton clearBtn;
+    JButton saveBtn;
     DrawWindow drawWindow;
     ActionListener actionListener = new ActionListener()
     {
@@ -40,11 +41,13 @@ public class Paint
 	
 	JPanel controls = new JPanel();
 	clearBtn = new JButton("Clear");
-	clearBtn.addActionListener(actionListener);	
+	clearBtn.addActionListener(actionListener);
+	saveBtn = new JButton("Save");
 	controls.add(clearBtn);
 	
 	content.add(controls, BorderLayout.NORTH);
-	frame.setSize(500, 700);
+	//frame.setSize(516, 775);
+	frame.setSize(drawWindow.dim[0] * 50 + 16, drawWindow.dim[1] * 50 + 75);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setVisible(true);
     }
