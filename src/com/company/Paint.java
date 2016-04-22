@@ -8,26 +8,25 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Paint
 {
+
 	// Here we can set a size of the tile and resolution of painting window
 
 	int res = 50;
-	int[] dim = {7, 5};
-	
-	//Building the view
-	
+	int[] dim =
+	{
+		5, 7
+	};
 	JButton clearBtn;
 	JButton saveBtn;
-	JComboBox comboBox;
 	DrawWindow drawWindow;
-	NeuralMemory neuralMemory;
+
+	NeuralMemory memory;
 	
 	ActionListener actionListener = new ActionListener()
 	{
@@ -40,9 +39,7 @@ public class Paint
 			} 
 			else if (e.getSource() == saveBtn)
 			{
-				int[][] values = NeuralMemory.shitToIntArray((BufferedImage) drawWindow.getImage(), 
-						dim, res);
-				neuralMemory.overwrite(values, comboBox.getSelectedItem().toString().charAt(0));			
+				NeuralMemory.shitToIntArray((BufferedImage) drawWindow.getImage(), dim, res);
 			}
 		}
 	};
@@ -57,12 +54,10 @@ public class Paint
 	public void show()
 	{
 		JFrame frame = new JFrame("Paint module");
+	//TEMP part
+//	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//	frame.setUndecorated(true);
 
-		//building combobox
-		String[] alphabet = "ABCDEFGHIJKLMOPQRSTUVWXYZ".split("(?<=\\G.{1})");
-		comboBox = new JComboBox(alphabet);
-		comboBox.setSelectedIndex(0);
-		
 		Container content = frame.getContentPane();
 
 		content.setLayout(new BorderLayout());
@@ -76,15 +71,12 @@ public class Paint
 		saveBtn.addActionListener(actionListener);
 		controls.add(clearBtn);
 		controls.add(saveBtn);
-		controls.add(comboBox);
 
 		content.add(controls, BorderLayout.NORTH);
 		//frame.setSize(516, 775);
 		drawWindow.setDimensions(dim);
-		frame.setSize(dim[1] * res + 16, dim[0] * res + 75);
+		frame.setSize(dim[0] * res + 16, dim[1] * res + 75);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
-		neuralMemory = new NeuralMemory(drawWindow);
 	}
 }
