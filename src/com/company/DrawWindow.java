@@ -14,9 +14,25 @@ public class DrawWindow extends JComponent
 {
     private Image image;
     private Graphics2D graphic;
-    protected final int[] dim = {20, 20};
+    protected int[] dim = {5, 7};
     
     private int currX, currY, oldX, oldY;
+    
+    public Image getImage()
+    {
+	return image;
+    }
+    
+    public Graphics2D getGraphics()
+    {
+	return graphic;
+    }
+    
+    public void setDimensions(int[] input)
+    {
+	dim = input;
+    }
+    
     
     public DrawWindow()
     {
@@ -32,7 +48,6 @@ public class DrawWindow extends JComponent
 		paintTile(oldX, oldY);
 		repaint();
 	    }
-	    
 	});
 	
 	addMouseMotionListener(new MouseMotionAdapter() 
@@ -81,7 +96,7 @@ public class DrawWindow extends JComponent
     {
 	graphic.setPaint(Color.white);
 	graphic.fillRect(0, 0, getSize().width, getSize().height);
-	graphic.setPaint(Color.black);
+	graphic.setPaint(Color.blue);
 	repaint();
     }
 
