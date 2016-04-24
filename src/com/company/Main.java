@@ -25,7 +25,7 @@ public class Main extends JFrame {
 
     public Main()
     {
-	root = new JPanel();
+	/*root = new JPanel();
 	label_information = new JLabel();
 	button_loadImage = new JButton();
 	button_accept = new JButton();
@@ -34,7 +34,7 @@ public class Main extends JFrame {
 	label_image = new JLabel();
 	label_result = new JLabel();
 	button_proceed = new JButton();
-	progressBar_result = new JProgressBar();
+	progressBar_result = new JProgressBar();*/
 	
 	
         setContentPane(root);
@@ -97,7 +97,8 @@ public class Main extends JFrame {
                                 }
                                 label_information.setText("Please check result");
                                 label_result.setText("Result currently unavailable");
-                            } catch (InterruptedException e) {
+                            } catch (InterruptedException e)
+                            {
                                 e.printStackTrace();
                             }
                         }
