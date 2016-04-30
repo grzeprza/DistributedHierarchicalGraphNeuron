@@ -19,12 +19,13 @@ public class Paint
 	// Here we can set a size of the tile and resolution of painting window
 
 	int res = 50;
-	int[] dim = {7, 5};
+	public static int[] dim = {7, 5};
 	
 	//Building the view
 	
 	JButton clearBtn;
 	JButton saveBtn;
+	JButton printBtn;
 	JComboBox comboBox;
 	DrawWindow drawWindow;
 	NeuralMemory neuralMemory;
@@ -40,9 +41,14 @@ public class Paint
 			} 
 			else if (e.getSource() == saveBtn)
 			{
-				int[][] values = NeuralMemory.shitToIntArray((BufferedImage) drawWindow.getImage(), 
+				int[][] values = shitToIntArray((BufferedImage) drawWindow.getImage(),
 						dim, res);
-				neuralMemory.overwrite(values, comboBox.getSelectedItem().toString().charAt(0));			
+				neuralMemory.overwrite(values, comboBox.getSelectedItem().toString().charAt(0));
+				BeautifulPrint.saveNeuralMemory(neuralMemory);
+			}
+			else if (e.getSource() == printBtn)
+			{
+				BeautifulPrint.printNeuralMemory(neuralMemory);
 			}
 		}
 	};
@@ -74,8 +80,11 @@ public class Paint
 		clearBtn.addActionListener(actionListener);
 		saveBtn = new JButton("Save");
 		saveBtn.addActionListener(actionListener);
+		printBtn = new JButton("PM");
+		printBtn.addActionListener(actionListener);
 		controls.add(clearBtn);
 		controls.add(saveBtn);
+		controls.add(printBtn);
 		controls.add(comboBox);
 
 		content.add(controls, BorderLayout.NORTH);
@@ -85,6 +94,26 @@ public class Paint
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
-		neuralMemory = new NeuralMemory(drawWindow);
+		//neuralMemory = new NeuralMemory(drawWindow);
+		neuralMemory = BeautifulPrint.getMemoryFromFile();
+	}
+
+	public static int[][] shitToIntArray(BufferedImage im, int[] dim, int res)
+	{
+		int width = im.getWidth();
+		int height = im.getHeight();
+		int[][] result = new int[dim[0]][dim[1]];
+
+		for (int i = 0; i < dim[0]; i++)
+		{
+			for (int j = 0; j < dim[1]; j++)
+			{
+				if(new Color(im.getRGB(j * res, i * res)).equals(Color.blue))
+				{
+					result[i][j] = 1;
+				}
+			}
+		}
+		return result;
 	}
 }
