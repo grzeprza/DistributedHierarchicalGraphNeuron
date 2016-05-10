@@ -2,7 +2,10 @@ package com.company;
 
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BeautifulPrint
 {
@@ -61,6 +64,53 @@ public class BeautifulPrint
         }
     }
 
+    public static void printMatchingPoints(HashMap<Character, Integer> map)
+    {
+        for(Character c = 'A'; c <= 'Z'; c++)
+        {
+            System.out.printf(c + ":   " + String.valueOf(map.get(c)));
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static void printMostMatchingPoints(HashMap<Character, Integer> map)
+    {
+        CharVal charVal = getMax(map);
+        System.out.println("Most matching character: " + charVal.character + " with " +
+                charVal.getMatchingPercentage() + " percent");
+        charVal = getMax(map);
+        System.out.println("Second most matching charater: " + charVal.character + " with " +
+                charVal.getMatchingPercentage() + " percent");
+        charVal = getMax(map);
+        System.out.println("Second most matching charater: " + charVal.character + " with " +
+                charVal.getMatchingPercentage() + " percent");
+        System.out.println("");
+
+
+//        System.out.println("Most matching character: " + getMax(map).character + " with " +
+//                Float.toString((float)getMax(map).val / ((float)(Paint.dim[0] * Paint.dim[1]))) + " % of match");
+//        System.out.println("Second most matching character: " + getMax(map).character + " with " +
+//                Float.toString(getMax(map).val / (Paint.dim[0] * Paint.dim[1])) + " % of match");
+//        System.out.println("Third most matching character: " + getMax(map).character + " with " +
+//                Float.toString(getMax(map).val / (Paint.dim[0] * Paint.dim[1])) + " % of match");
+    }
+
+    public static CharVal getMax(HashMap<Character, Integer> map)
+    {
+        CharVal max = new CharVal(' ', 0);
+        for(Character c = 'A'; c <= 'Z'; c++)
+        {
+            if(map.get(c) > max.val)
+            {
+                max.character = c;
+                max.val = map.get(c);
+            }
+        }
+        map.put(max.character, 0);
+        return max;
+    }
+
     public static NeuralMemory getMemoryFromFile()
     {
         int[] dim = Paint.dim;
@@ -90,3 +140,4 @@ public class BeautifulPrint
         }
     }
 }
+

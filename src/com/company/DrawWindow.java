@@ -16,6 +16,8 @@ public class DrawWindow extends JComponent
 	private Image image;
 	private Graphics2D graphic;
 	private int[] dim;
+	private int resolutionX;
+	private int resolutionY;
 
 	private int currX, currY, oldX, oldY;
 
@@ -74,6 +76,7 @@ public class DrawWindow extends JComponent
 		});
 	}
 
+	//Perfect code to refactor due to the duplicates
 	private void paintTile(int x, int y)
 	{
 		int resolutionX = getSize().width / dim[1];
@@ -81,6 +84,23 @@ public class DrawWindow extends JComponent
 		int leftUpper = x / resolutionX * resolutionX;
 		int rightLower = y / resolutionY * resolutionY;
 		graphic.fillRect(leftUpper, rightLower, resolutionX, resolutionY);
+	}
+
+	private void paintDiffusedTile(int x, int y)
+	{
+		paintSmallTile(x, y);
+		paintSmallTile(x + 2 * resolutionX / 3, y);
+		paintSmallTile(x, y + 2 * resolutionY / 3);
+		paintSmallTile(x + 2 * resolutionX / 3, y + 2 * resolutionY / 3);
+		paintSmallTile(x + resolutionX / 3, y + resolutionY / 3);
+	}
+
+	private void paintSmallTile(int x, int y)
+	{
+		int resolutionX = getSize().width / dim[1];
+		int resolutionY = getSize().height / dim[0];
+		graphic.fillRect(x, y, resolutionX / 3, resolutionY / 3);
+		repaint();
 	}
 
 	@Override
@@ -97,12 +117,28 @@ public class DrawWindow extends JComponent
 		g.drawImage(image, 0, 0, null);
 	}
 
+	public void paintPattern(int[][] pattern)
+	{
+		graphic.setPaint(Color.red);
+		for(int i = 0; i < pattern[0].length; i++)
+		{
+			for(int j = 0; j < pattern.length; j++)
+			{
+				if(pattern[j][i] == 1)
+					paintDiffusedTile(i * resolutionX, j * resolutionY);
+			}
+		}
+		graphic.setPaint(Color.BLUE);
+	}
+
 	public void clear()
 	{
 		graphic.setPaint(Color.white);
 		graphic.fillRect(0, 0, getSize().width, getSize().height);
 		graphic.setPaint(Color.blue);
 		repaint();
+		resolutionX = getSize().width / dim[1];
+		resolutionY = getSize().height / dim[0];
 	}
 
 }

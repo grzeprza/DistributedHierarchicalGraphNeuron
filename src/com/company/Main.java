@@ -56,23 +56,24 @@ public class Main extends JFrame {
          * */
         button_loadImage.addActionListener(
                 action -> { label_information.setText(action.getActionCommand());
-                            final JFileChooser fileChooser = new JFileChooser("/");
-                            FileNameExtensionFilter filter = new FileNameExtensionFilter("Images","png","jpg","bmp");
-                            fileChooser.setFileFilter(filter);
-                            if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-                            {
-                                try {
-                                    img = ImageIO.read(fileChooser.getSelectedFile());
-                                    int imgWidth = img.getWidth() > 10 ? 300 : img.getWidth()*100; //Brutal, but easy temporary solution
-                                    int imgHeight = img.getHeight() > 10 ? 400 : img.getHeight()*100;
-                                    ImageIcon imageIcon = new ImageIcon(img.getScaledInstance(imgWidth,imgHeight, Image.SCALE_SMOOTH));
-                                    label_imageSize.setText(img.getWidth() + " x " + img.getHeight());
-                                    label_image.setIcon(imageIcon);
-                                    label_image.setText("");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
+//                            final JFileChooser fileChooser = new JFileChooser("/");
+//                            FileNameExtensionFilter filter = new FileNameExtensionFilter("Images","png","jpg","bmp");
+//                            fileChooser.setFileFilter(filter);
+                            Paint.main(null);
+//                            if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+//                            {
+//                                try {
+//                                    img = ImageIO.read(fileChooser.getSelectedFile());
+//                                    int imgWidth = img.getWidth() > 10 ? 300 : img.getWidth()*100; //Brutal, but easy temporary solution
+//                                    int imgHeight = img.getHeight() > 10 ? 400 : img.getHeight()*100;
+//                                    ImageIcon imageIcon = new ImageIcon(img.getScaledInstance(imgWidth,imgHeight, Image.SCALE_SMOOTH));
+//                                    label_imageSize.setText(img.getWidth() + " x " + img.getHeight());
+//                                    label_image.setIcon(imageIcon);
+//                                    label_image.setText("");
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
                         });
 
         //Progress bar - currently just for mock use

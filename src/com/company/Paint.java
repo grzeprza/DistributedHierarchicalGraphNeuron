@@ -18,7 +18,7 @@ public class Paint
 {
 	// Here we can set a size of the tile and resolution of painting window
 
-	int res = 50;
+	int res = 90;
 	public static int[] dim = {7, 5};
 	
 	//Building the view
@@ -26,10 +26,12 @@ public class Paint
 	JButton clearBtn;
 	JButton saveBtn;
 	JButton printBtn;
+	JButton compareBtn;
+	JButton readPatternBtn;
 	JComboBox comboBox;
 	DrawWindow drawWindow;
 	NeuralMemory neuralMemory;
-	
+
 	ActionListener actionListener = new ActionListener()
 	{
 		@Override
@@ -50,6 +52,18 @@ public class Paint
 			{
 				BeautifulPrint.printNeuralMemory(neuralMemory);
 			}
+			else if(e.getSource() == compareBtn)
+			{
+				int[][] values = shitToIntArray((BufferedImage) drawWindow.getImage(),
+						dim, res);
+				DHGN algo = new DHGN(values);
+				//BeautifulPrint.printMatchingPoints(algo.compareToSet(neuralMemory.getHashMap()));
+				BeautifulPrint.printMostMatchingPoints(algo.compareToSet(neuralMemory.getHashMap()));
+			}
+			else if(e.getSource() == readPatternBtn)
+			{
+				drawWindow.paintPattern(neuralMemory.getHashMap().get(comboBox.getSelectedItem().toString().charAt(0)).getArray());
+			}
 		}
 	};
 
@@ -65,7 +79,7 @@ public class Paint
 		JFrame frame = new JFrame("Paint module");
 
 		//building combobox
-		String[] alphabet = "ABCDEFGHIJKLMOPQRSTUVWXYZ".split("(?<=\\G.{1})");
+		String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("(?<=\\G.{1})");
 		comboBox = new JComboBox(alphabet);
 		comboBox.setSelectedIndex(0);
 		
@@ -82,9 +96,15 @@ public class Paint
 		saveBtn.addActionListener(actionListener);
 		printBtn = new JButton("PM");
 		printBtn.addActionListener(actionListener);
+		compareBtn = new JButton("Comp");
+		compareBtn.addActionListener(actionListener);
+		readPatternBtn = new JButton("Patt");
+		readPatternBtn.addActionListener(actionListener);
 		controls.add(clearBtn);
 		controls.add(saveBtn);
 		controls.add(printBtn);
+		controls.add(compareBtn);
+		controls.add(readPatternBtn);
 		controls.add(comboBox);
 
 		content.add(controls, BorderLayout.NORTH);
