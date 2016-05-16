@@ -1,18 +1,10 @@
 package com.company;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Paint
 {
@@ -22,7 +14,8 @@ public class Paint
 	public static int[] dim = {7, 5};
 	
 	//Building the view
-	
+
+	BeautifulPrint beautifulPrint;
 	JButton clearBtn;
 	JButton saveBtn;
 	JButton printBtn;
@@ -32,7 +25,13 @@ public class Paint
 	DrawWindow drawWindow;
 	NeuralMemory neuralMemory;
 
-	ActionListener actionListener = new ActionListener()
+	JPanel informPanel;
+	JTextArea textArea;
+	JScrollPane jScrollPane;
+
+	public volatile String message;
+
+	public ActionListener actionListener = new ActionListener()
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)
@@ -40,6 +39,7 @@ public class Paint
 			if (e.getSource() == clearBtn)
 			{
 				drawWindow.clear();
+				textArea.setText("Cleared.");
 			} 
 			else if (e.getSource() == saveBtn)
 			{
@@ -47,10 +47,12 @@ public class Paint
 						dim, res);
 				neuralMemory.overwrite(values, comboBox.getSelectedItem().toString().charAt(0));
 				BeautifulPrint.saveNeuralMemory(neuralMemory);
+				textArea.setText(BeautifulPrint.message + "SAVED");
 			}
 			else if (e.getSource() == printBtn)
 			{
 				BeautifulPrint.printNeuralMemory(neuralMemory);
+				textArea.setText(BeautifulPrint.message);
 			}
 			else if(e.getSource() == compareBtn)
 			{
@@ -59,10 +61,12 @@ public class Paint
 				DHGN algo = new DHGN(values);
 				//BeautifulPrint.printMatchingPoints(algo.compareToSet(neuralMemory.getHashMap()));
 				BeautifulPrint.printMostMatchingPoints(algo.compareToSet(neuralMemory.getHashMap()));
+				textArea.setText(BeautifulPrint.message);
 			}
 			else if(e.getSource() == readPatternBtn)
 			{
 				drawWindow.paintPattern(neuralMemory.getHashMap().get(comboBox.getSelectedItem().toString().charAt(0)).getArray());
+				textArea.setText("Pattern displayed");
 			}
 		}
 	};
@@ -71,7 +75,7 @@ public class Paint
 
 	public static void main(String[] args)
 	{
-		new Paint().show();
+
 	}
 
 	public void show()
@@ -108,8 +112,22 @@ public class Paint
 		controls.add(comboBox);
 
 		content.add(controls, BorderLayout.NORTH);
-		//frame.setSize(516, 775);
-		drawWindow.setDimensions(dim);
+
+
+		informPanel = new JPanel();
+		textArea = new JTextArea(4,30);
+		textArea.setEditable(true);
+		 jScrollPane = new JScrollPane(textArea);
+		jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		informPanel.add(jScrollPane);
+	//	informPanel.add(textArea);
+	//	informPanel.setSize(200,400);
+	//	jScrollPane.add(informPanel);
+		content.add(informPanel, BorderLayout.SOUTH);
+
+
+				//frame.setSize(516, 775);
+				drawWindow.setDimensions(dim);
 		frame.setSize(dim[1] * res + 16, dim[0] * res + 75);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);

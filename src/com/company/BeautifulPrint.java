@@ -2,21 +2,20 @@ package com.company;
 
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 public class BeautifulPrint
 {
+    static String message = "";
     public static void printNeuralMemory(NeuralMemory nm)
     {
+        message="";
         for(NeuralStructure ns: nm.getHashMap().values())
         {
-            System.out.println(String.valueOf(ns.getCharacter()) + " is represented as:");
+            message += (String.valueOf(ns.getCharacter()) + " is represented as:");
             BeautifulPrint.printNeuralStructure(ns);
-            System.out.println("");
-            System.out.println("");
+            message +=("\n\n");
         }
     }
 
@@ -24,8 +23,8 @@ public class BeautifulPrint
     {
         for(int[] line : ns.getArray())
         {
-            System.out.printf(Arrays.toString(line));
-            System.out.println("");
+            message +=(Arrays.toString(line));
+            message += "\n";
         }
     }
 
@@ -68,24 +67,24 @@ public class BeautifulPrint
     {
         for(Character c = 'A'; c <= 'Z'; c++)
         {
-            System.out.printf(c + ":   " + String.valueOf(map.get(c)));
-            System.out.println();
+            message +=(c + ":   " + String.valueOf(map.get(c)));
+            message += "\n";
         }
-        System.out.println();
+        message += "\n";
     }
 
     public static void printMostMatchingPoints(HashMap<Character, Integer> map)
     {
+        message="";
         CharVal charVal = getMax(map);
-        System.out.println("Most matching character: " + charVal.character + " with " +
-                charVal.getMatchingPercentage() + " percent");
+        message +=("Most matching character: " + charVal.character + " with " +
+                charVal.getMatchingPercentage() + " percent" + "\n");
         charVal = getMax(map);
-        System.out.println("Second most matching charater: " + charVal.character + " with " +
-                charVal.getMatchingPercentage() + " percent");
+        message +=("Second most matching charater: " + charVal.character + " with " +
+                charVal.getMatchingPercentage() + " percent" + "\n");
         charVal = getMax(map);
-        System.out.println("Second most matching charater: " + charVal.character + " with " +
-                charVal.getMatchingPercentage() + " percent");
-        System.out.println("");
+        message +=("Second most matching charater: " + charVal.character + " with " +
+                charVal.getMatchingPercentage() + " percent" + "\n");
 
 
 //        System.out.println("Most matching character: " + getMax(map).character + " with " +

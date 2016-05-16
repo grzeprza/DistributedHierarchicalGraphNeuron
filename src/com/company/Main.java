@@ -1,11 +1,8 @@
 package com.company;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Main extends JFrame {
 
@@ -19,8 +16,13 @@ public class Main extends JFrame {
     private JLabel label_result;
     private JButton button_proceed;
     private JProgressBar progressBar_result;
+    private JPanel jpanel_draw;
     private BufferedImage img;
+    private DrawWindow drawWindow;
+    private Paint paint;
 
+    private BeautifulPrint beautifulPrint;
+    ActionListener actionListenerDrawing;
     private ImageParsingAlgorithm imageParsingAlgorithm;
 
     public Main()
@@ -35,20 +37,20 @@ public class Main extends JFrame {
 	label_result = new JLabel();
 	button_proceed = new JButton();
 	progressBar_result = new JProgressBar();*/
-	
+
 	
         setContentPane(root);
-        setName("Sztuczna Inteligencja 2016 - J. Plebaniak, G. Prz�dka, M. Werda");
+        setName("Sztuczna Inteligencja 2016 - J. Plebaniak, G. Przadka, M. Werda");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        beautifulPrint = new BeautifulPrint();
 
         /**Future use: User accepts Algorithms predition (plausible feature)*/
         button_accept.addActionListener(action -> label_information.setText(action.getActionCommand()));
 
         /**Future use: User disapproves Algorithms prediction (plausible feature)*/
         button_disapprove.addActionListener(action -> label_information.setText(action.getActionCommand()));
-
-
         /**
          * Listener enables choosing file with right file extension.
          * Reads image from file -> Scales it to put it into visible label.
@@ -59,8 +61,9 @@ public class Main extends JFrame {
 //                            final JFileChooser fileChooser = new JFileChooser("/");
 //                            FileNameExtensionFilter filter = new FileNameExtensionFilter("Images","png","jpg","bmp");
 //                            fileChooser.setFileFilter(filter);
-                            Paint.main(null);
-//                            if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+                            paint = new Paint();
+                            paint.show();
+//  if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 //                            {
 //                                try {
 //                                    img = ImageIO.read(fileChooser.getSelectedFile());
@@ -75,6 +78,8 @@ public class Main extends JFrame {
 //                                }
 //                            }
                         });
+
+
 
         //Progress bar - currently just for mock use
         //Shows simple logic behind
@@ -127,6 +132,8 @@ public class Main extends JFrame {
 
       //  DHGN dhgn = new DHGN(simpleTsign,3);
 
-        Main app = new Main();
+        //Main app = new Main();
+        Paint paint = new Paint();
+        paint.show();
     }
 }
